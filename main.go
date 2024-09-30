@@ -1,21 +1,28 @@
 package main
 
 import (
-	"Virtual_FS/Virtual_FS/models"
+	"Virtual_FS/models"
 	"fmt"
+	"os"
+	"strings"
 )
 
 func main() {
 	for {
 		var cmd string
-		fmt.Scanf("# %s", &cmd)
+		fmt.Printf("# ")
+		fmt.Scan(&cmd)
 		switch cmd {
 		case "register":
 			var username string
-			fmt.Scanf("%s", &username)
+			fmt.Scan(&username)
 			err := models.Register(username)
 			if err != nil {
-
+				// Capitalize the first character
+				errmsg := strings.ToUpper(string(err.Error()[0])) + string(err.Error()[1:])
+				fmt.Fprintln(os.Stderr, "Error: "+errmsg)
+			} else {
+				fmt.Println("Add", username, "successfully.")
 			}
 
 		case "create-folder":
