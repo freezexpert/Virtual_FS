@@ -1,6 +1,9 @@
 package models
 
-import "time"
+import (
+	"regexp"
+	"time"
+)
 
 var Users = map[string]*User{}
 
@@ -20,4 +23,13 @@ type Folder struct {
 	Description string
 	CreatedAt   time.Time
 	Files       map[string]*File
+}
+
+func IsValidName(name string) bool {
+	re := regexp.MustCompile(`[^A-Za-z0-9'-]`)
+	if re.MatchString(name) {
+		return false
+	} else {
+		return true
+	}
 }

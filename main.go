@@ -30,7 +30,8 @@ func main() {
 			fmt.Scan(&username, &foldername, &description)
 			err := models.CreateFolder(username, foldername, description)
 			if err != nil {
-				fmt.Println("Error:", err)
+				errmsg := strings.ToUpper(string(err.Error()[0])) + string(err.Error()[1:])
+				fmt.Fprintln(os.Stderr, "Error: "+errmsg)
 			} else {
 				fmt.Println("Create", foldername, "successfully.")
 			}
@@ -40,7 +41,8 @@ func main() {
 			fmt.Scan(&username, &foldername)
 			err := models.DeleteFolder(username, foldername)
 			if err != nil {
-				fmt.Println("Error:", err)
+				errmsg := strings.ToUpper(string(err.Error()[0])) + string(err.Error()[1:])
+				fmt.Fprintln(os.Stderr, "Error: "+errmsg)
 			} else {
 				fmt.Println("Delete", foldername, "successfully.")
 			}
@@ -50,6 +52,7 @@ func main() {
 			fmt.Scan(&username, &sortType, &order)
 			folders, err := models.ListFolders(username, sortType, order)
 			if err != nil {
+
 				fmt.Println("Error:", err)
 			}
 			fmt.Println("List", folders, "successfully.")
@@ -59,7 +62,8 @@ func main() {
 			fmt.Scan(&username, &foldername, &newFolderName)
 			err := models.RenameFolder(username, foldername, newFolderName)
 			if err != nil {
-				fmt.Println("Error:", err)
+				errmsg := strings.ToUpper(string(err.Error()[0])) + string(err.Error()[1:])
+				fmt.Fprintln(os.Stderr, "Error: "+errmsg)
 			} else {
 				fmt.Println("Rename", foldername, "to", newFolderName, "successfully.")
 			}
